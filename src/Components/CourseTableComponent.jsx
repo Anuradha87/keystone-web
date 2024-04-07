@@ -115,7 +115,7 @@ const Repoz = (props) => {
               <TableCell className={classes.tableHeaderCell}></TableCell>
               <TableCell className={classes.tableHeaderCell}>Course Name</TableCell>
               <TableCell className={classes.tableHeaderCell}>Institute</TableCell>
-              <TableCell className={classes.tableHeaderCell}>Delivery Method</TableCell>
+              <TableCell className={classes.tableHeaderCell}>Lecture Method</TableCell>
               <TableCell className={classes.tableHeaderCell}>Location</TableCell>
             </TableRow>
           </TableHead>
