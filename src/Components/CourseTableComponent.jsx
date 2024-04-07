@@ -16,33 +16,33 @@ import MessageBox from './MessageBox'; // Import your MessageBox component
 import Popup from './ContactDetailsPopup'; // Import your Popup component
 
 const useStyles = makeStyles((theme) => ({
-    tableContainer: {
-        margin: 'auto',
-        marginTop: '20px',
-      },
-      tableHeaderCell: {
-        fontWeight: 'bold !important',
-        backgroundColor: '#BBDEFB', 
-      },
-      buttonContainer: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        marginBottom: '20px', 
-      },
-      tableRow: {
-        '&:hover': {
-          backgroundColor: '#F5F5F5',
-        },
-        padding: '5px !important',
-      },
-      checkbox: {
-        '&.Mui-checked': {
-            color: '#28a745 !important',
-        },
-      },
-      pagination: {
-          '& > *': {
-             marginTop: theme.spacing(2),
+  tableContainer: {
+    margin: 'auto',
+    marginTop: '20px',
+  },
+  tableHeaderCell: {
+    fontWeight: 'bold !important',
+    backgroundColor: '#BBDEFB',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: '20px',
+  },
+  tableRow: {
+    '&:hover': {
+      backgroundColor: '#F5F5F5',
+    },
+    padding: '5px !important',
+  },
+  checkbox: {
+    '&.Mui-checked': {
+      color: '#28a745 !important',
+    },
+  },
+  pagination: {
+    '& > *': {
+      marginTop: theme.spacing(2),
     },
   },
 }));
@@ -51,32 +51,25 @@ const Repoz = (props) => {
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
   const [popupOpen, setPopupOpen] = useState(false);
-  const [selectedRepo, setSelectedRepo] = useState(null);
-  const [checkedItems, setCheckedItems] = useState({});
+  const [selectedCourses, setSelectedCourses] = useState([]);
 
   const classes = useStyles();
 
   const openPopup = () => {
-    const selectedItems = props.data.courses.filter(repo => checkedItems[repo.id]);
-    setSelectedRepo(selectedItems);
     setPopupOpen(true);
   };
 
-  const closePopup = () => {
-    setPopupOpen(false);
-    setSelectedRepo(null);
-  };
-
-  const handleCheckboxChange = (id) => {
-    setCheckedItems((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+  const handleCheckboxChange = (course) => {
+    const index = selectedCourses.findIndex(selectedCourse => selectedCourse.id === course.id);
+    if (index === -1) {
+      setSelectedCourses([...selectedCourses, course]);
+    } else {
+      setSelectedCourses(selectedCourses.filter(selectedCourse => selectedCourse.id !== course.id));
+    }
   };
 
   const handleButtonClick = () => {
-    const checkedCourses = props.data.courses.filter(repo => checkedItems[repo.id]);
-    if (checkedCourses.length === 0) {
+    if (selectedCourses.length === 0) {
       setMessage('Please select at least one course');
       setShowMessage(true);
       return;
@@ -94,8 +87,8 @@ const Repoz = (props) => {
         <TableCell>
           <Checkbox
             color="primary"
-            checked={!!checkedItems[reposinfoz.id]}
-            onChange={() => handleCheckboxChange(reposinfoz.id)}
+            checked={selectedCourses.some(selectedCourse => selectedCourse.id === reposinfoz.id)}
+            onChange={() => handleCheckboxChange(reposinfoz)}
             className={classes.checkbox}
           />
         </TableCell>
@@ -140,7 +133,7 @@ const Repoz = (props) => {
         shape="rounded"
         className={classes.pagination}
       />
-      {popupOpen && <Popup repo={selectedRepo} onClose={closePopup} />}
+      {popupOpen && <Popup repo={selectedCourses} onClose={() => setPopupOpen(false)} />}
     </div>
   );
 };
