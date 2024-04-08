@@ -1,0 +1,27 @@
+.custom-table-row:hover {
+    background-color: #F5F5F5;
+  }
+  
+  .custom-checkbox.Mui-checked {
+    color: #28a745 !important;
+  }
+  
+  .custom-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+  
+  .custom-table-container {
+    margin: auto;
+    margin-top: 20px;
+  }
+  
+  .custom-table-header-cell {
+    font-weight: bold !important;
+    background-color: #BBDEFB;
+  }
+  
+  .custom-pagination > * {
+    margin-top: 16px;
+  }

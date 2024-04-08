@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Checkbox,
@@ -10,50 +9,17 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from '@material-ui/core';
+} from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import MessageBox from './MessageBox'; // Import your MessageBox component
-import Popup from './ContactDetailsPopup'; // Import your Popup component
-
-const useStyles = makeStyles((theme) => ({
-  tableContainer: {
-    margin: 'auto',
-    marginTop: '20px',
-  },
-  tableHeaderCell: {
-    fontWeight: 'bold !important',
-    backgroundColor: '#BBDEFB',
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: '20px',
-  },
-  tableRow: {
-    '&:hover': {
-      backgroundColor: '#F5F5F5',
-    },
-    padding: '5px !important',
-  },
-  checkbox: {
-    '&.Mui-checked': {
-      color: '#28a745 !important',
-    },
-  },
-  pagination: {
-    '& > *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+import MessageBox from './MessageBox'; 
+import Popup from './ContactDetailsPopup'; 
+import './customStyles.css'; 
 
 const Repoz = (props) => {
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState('');
   const [popupOpen, setPopupOpen] = useState(false);
   const [selectedCourses, setSelectedCourses] = useState([]);
-
-  const classes = useStyles();
 
   const openPopup = () => {
     setPopupOpen(true);
@@ -83,13 +49,13 @@ const Repoz = (props) => {
 
   const renderCourses = () => {
     return props.data.courses.map((reposinfoz) => (
-      <TableRow key={reposinfoz.id} className={classes.tableRow}>
+      <TableRow key={reposinfoz.id} className="custom-table-row">
         <TableCell>
           <Checkbox
             color="primary"
             checked={selectedCourses.some(selectedCourse => selectedCourse.id === reposinfoz.id)}
             onChange={() => handleCheckboxChange(reposinfoz)}
-            className={classes.checkbox}
+            className="custom-checkbox"
           />
         </TableCell>
         <TableCell>{reposinfoz.name}</TableCell>
@@ -103,20 +69,20 @@ const Repoz = (props) => {
   return (
     <div>
       {showMessage && <MessageBox message={message} onClose={() => setShowMessage(false)} />}
-      <div className={classes.buttonContainer}>
+      <div className="custom-button-container">
         <Button onClick={handleButtonClick} variant="contained" color="primary">
           Send us your choices
         </Button>
       </div>
-      <TableContainer component={Paper} className={classes.tableContainer}>
+      <TableContainer component={Paper} className="custom-table-container">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className={classes.tableHeaderCell}></TableCell>
-              <TableCell className={classes.tableHeaderCell}>Course Name</TableCell>
-              <TableCell className={classes.tableHeaderCell}>Institute</TableCell>
-              <TableCell className={classes.tableHeaderCell}>Lecture Method</TableCell>
-              <TableCell className={classes.tableHeaderCell}>Location</TableCell>
+              <TableCell className="custom-table-header-cell"></TableCell>
+              <TableCell className="custom-table-header-cell">Course Name</TableCell>
+              <TableCell className="custom-table-header-cell">Institute</TableCell>
+              <TableCell className="custom-table-header-cell">Lecture Method</TableCell>
+              <TableCell className="custom-table-header-cell">Location</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -131,7 +97,7 @@ const Repoz = (props) => {
         onChange={handlePageChange}
         variant="outlined"
         shape="rounded"
-        className={classes.pagination}
+        className="custom-pagination"
       />
       {popupOpen && <Popup repo={selectedCourses} onClose={() => setPopupOpen(false)} />}
     </div>
