@@ -43,6 +43,10 @@ const Repoz = (props) => {
     openPopup();
   };
 
+  const handleRemoveClick = (course) => {
+    setSelectedCourses(selectedCourses.filter(selectedCourse => selectedCourse.id !== course.id));
+  };
+
   const handlePageChange = (event, page) => {
     props.onPageChange(event, page);
   };
@@ -99,7 +103,7 @@ const Repoz = (props) => {
         shape="rounded"
         className="custom-pagination"
       />
-      {popupOpen && <Popup repo={selectedCourses} onClose={() => setPopupOpen(false)} />}
+      {popupOpen && <Popup repo={selectedCourses} onClose={() => setPopupOpen(false)} handleRemoveClick={handleRemoveClick} />}
     </div>
   );
 };
